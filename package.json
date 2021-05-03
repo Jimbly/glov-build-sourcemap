@@ -1,6 +1,6 @@
 {
   "name": "glov-build-sourcemap",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Sourcemap handling helpers for glov-build tasks",
   "main": "index.js",
   "keywords": [

@@ -36,7 +36,7 @@ exports.init = function init(job, file, next) {
   if (!map_url) {
     // no sourcemaps found, will probably error if expected?
     job.warn('No sourceMappingURL found in source file');
-    return void next(null, null, null);
+    return void next(null, null, null, code);
   }
   let stripped = code.replace(REGEX_SOURCEMAP_URL, '');
 
