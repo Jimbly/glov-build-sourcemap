@@ -35,7 +35,7 @@ exports.init = function init(job, file, next) {
   let [is_inline, map_url] = extractSourcemap(code);
   if (!map_url) {
     // no sourcemaps found, will probably error if expected?
-    job.warn('No sourceMappingURL found in source file');
+    job.warn(file, `No sourceMappingURL found in source file ${file.key}`);
     return void next(null, null, null, code);
   }
   let stripped = code.replace(REGEX_SOURCEMAP_URL, '');
