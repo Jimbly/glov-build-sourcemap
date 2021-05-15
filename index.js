@@ -237,6 +237,11 @@ exports.out = function (job, opts) {
         if (path.dirname(map.sources[ii]) === path.dirname(relative)) {
           map.sources[ii] = path.basename(map.sources[ii]);
         }
+        // Remove excessive relative paths to node_modules, they can vary based
+        // on `npm link` situations and make for non-deterministic builds, as well
+        // as (almost certainly) being the wrong levels off due to being calculated
+        // relative to some intermediate file instead of the final output file.
+        map.sources[ii] = map.sources[ii].replace(/(?:\.\.\/)+node_modules/g, 'node_modules');
       }
     }
     if (path.dirname(map.file) === path.dirname(relative)) {
