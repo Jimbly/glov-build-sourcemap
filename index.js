@@ -223,14 +223,13 @@ exports.out = function (job, opts) {
       assert(false, 'Missing `map` parameter');
     }
   }
-  let dirname = forwardSlashes(path.dirname(relative));
   if (Buffer.isBuffer(map)) {
-    if (map.indexOf(dirname) !== -1) { // needs path fixup
-      map = map.toString();
-    }
+    map = map.toString();
   }
-  if (typeof map === 'string' && map.indexOf(dirname) !== -1) {
+  if (typeof map === 'string') {
     map = JSON.parse(map);
+  }
+  if (typeof map === 'object' && !Buffer.isBuffer(map)) { // should always be true
     // Fix up paths to be relative to where we're writing the map
     if (map.sources) {
       for (let ii = 0; ii < map.sources.length; ++ii) {
@@ -244,11 +243,18 @@ exports.out = function (job, opts) {
         map.sources[ii] = map.sources[ii].replace(/(?:\.\.\/)+node_modules/g, 'node_modules');
       }
     }
-    if (path.dirname(map.file) === path.dirname(relative)) {
-      map.file = path.basename(map.file);
-    }
-  }
-  if (typeof map === 'object' && !Buffer.isBuffer(map)) {
+    // Don't "fixup" map.file, but just set it to what it should be
+    // if (map.file === 'generated.js') { // Where is this coming from? Browserify, maybe?
+    //   // Is it correct to set this always? Seems like.
+    //   map.file = path.basename(relative);
+    // }
+    // if (path.dirname(map.file) === path.dirname(relative)) {
+    //   map.file = path.basename(map.file);
+    // }
+    // assert.equal(map.file, path.basename(relative));
+    map.file = path.basename(relative);
+
+    // Encode back to string
     map = JSON.stringify(map);
   }
   if (!Buffer.isBuffer(map)) {
