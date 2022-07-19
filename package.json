@@ -1,6 +1,6 @@
 {
   "name": "glov-build-sourcemap",
-  "version": "0.0.5",
+  "version": "1.0.5",
   "description": "Sourcemap handling helpers for glov-build tasks",
   "main": "index.js",
   "keywords": [
@@ -17,6 +17,6 @@
   "dependencies": {},
   "devDependencies": {},
   "peerDependencies": {
-    "glov-build": ">= 0.0.16"
+    "glov-build": ">= 1.0.36"
   }
 }
