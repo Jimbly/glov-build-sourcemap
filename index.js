@@ -8,10 +8,6 @@ const SOURCEMAP_INLINE_PRE1 = `//# sourceMappingURL=${BASE64PRE1}`;
 const REGEX_SOURCEMAP_INLINE = /^\/\/# sourceMappingURL=data:application\/json;charset=utf-?8;base64,/m;
 const REGEX_SOURCEMAP_URL = /^\/\/# sourceMappingURL=(.*)$/m;
 
-function forwardSlashes(str) {
-  return str.replace(/\\/g, '/');
-}
-
 // returns [is_inline, path or map string]
 function extractSourcemap(code) {
   let m = code.match(REGEX_SOURCEMAP_URL);
